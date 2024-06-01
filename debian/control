@@ -1,15 +1,38 @@
-Source: template-repository
-Section: unknown
+Source: golang-github-mattn-go-ieproxy
+Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
+Uploaders: Drew Parsons <dparsons@debian.org>
+Section: devel
+Testsuite: autopkgtest-pkg-go
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Build-Depends: debhelper-compat (= 13),
+ dh-golang,
+ golang-golang-x-net-dev,
+ golang-golang-x-sys-dev
+Build-Depends-Indep: golang-any
+Standards-Version: 4.6.1
+Vcs-Browser: https://salsa.debian.org/go-team/packages/golang-github-mattn-go-ieproxy
+Vcs-Git: https://salsa.debian.org/go-team/packages/golang-github-mattn-go-ieproxy.git
+Homepage: https://github.com/mattn/go-ieproxy
+Rules-Requires-Root: no
+XS-Go-Import-Path: github.com/mattn/go-ieproxy
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: golang-github-mattn-go-ieproxy-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Go package to detect the proxy settings on Windows platform (library)
+ ieproxy Go package to detect the proxy settings on Windows platform.
+ .
+ The settings are initially attempted to be
+ read from the WinHttpGetIEProxyConfigForCurrentUser DLL call
+ (https://docs.microsoft.com/en-us/windows/desktop/api/winhttp/nf-winhttp-winhttpgetieproxyconfigforcurrentuser),
+ but falls back to the registry
+ (CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings)
+ in the event the DLL call fails.
+ .
+ For more information, take a look at the documentation
+ (https://godoc.org/github.com/mattn/go-ieproxy) Methods You can either
+ obtain a net/http compatible proxy function using ieproxy.GetProxyFunc(),
+ set environment variables using ieproxy.OverrideEnvWithStaticProxy()
+ (though no automatic configuration is available this way), or obtain
+ the proxy settings via ieproxy.GetConf().
